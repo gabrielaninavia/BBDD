@@ -1,0 +1,40 @@
+DROP DATABASE IF EXISTS Tienda;
+CREATE DATABASE Tienda;
+USE Tienda;
+CREATE TABLE Clientes (
+    id_cliente INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50),
+    apellido VARCHAR(50),
+    DNI INT NOT NULL
+);
+
+CREATE TABLE Ciudades (
+    id_ciudad INT PRIMARY KEY AUTO_INCREMENT,
+    ciudad VARCHAR(50),
+    codigo_postal VARCHAR(50),
+    id_cliente INT,
+    FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente)
+);
+
+CREATE TABLE Provincias (
+    id_provincia INT PRIMARY KEY AUTO_INCREMENT,
+    provincia VARCHAR(50),
+    fecha_hora DATETIME,
+    id_ciudad INT,
+    FOREIGN KEY (id_ciudad) REFERENCES Ciudades(id_ciudad)
+);
+
+CREATE TABLE Compras (
+    id_compra INT PRIMARY KEY AUTO_INCREMENT,
+    precio_unitario DECIMAL(10,2),
+    total DECIMAL(10,2),
+    fecha DATETIME,
+    id_cliente INT,
+    FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente)
+);
+
+CREATE TABLE Productos (
+    id_producto INT PRIMARY KEY AUTO_INCREMENT,
+    producto VARCHAR(50),
+    total DECIMAL(10,2)
+);
