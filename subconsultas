@@ -1,0 +1,69 @@
+1 – Clientes que viven en buenos aires
+select c.nombre, c.apellido from clientes c join ciudades ci on c.localidad = ci.id where ci.provincia = ( SELECT id FROM provincias WHERE nombre = 'buenos aires');
+
+2 – Productos con precio mayor al promedio
+SELECT *
+FROM productos
+WHERE precio > (SELECT AVG(precio) FROM productos);
+
+3 – Clientes que compraron el producto con id 5
+SELECT nombre
+FROM clientes
+WHERE id IN (
+    SELECT cliente
+    FROM compras
+    WHERE producto = 5
+);
+4 – Provincias con población mayor al promedio
+SELECT *
+FROM provincias
+WHERE poblacion > (SELECT AVG(poblacion) FROM provincias);
+
+5 – Productos con el mismo precio que la birome azul
+SELECT descripcion
+FROM productos 
+WHERE precio = (
+    SELECT precio 
+    FROM productos 
+    WHERE descripcion = 'birome azul'
+);
+6 – ciudades de la provincia Buenos Aires
+SELECT nombre
+FROM ciudades
+WHERE provincia IN (
+    SELECT id
+    FROM provincias
+    WHERE nombre = 'buenos aires'
+);
+7 – clientes que NO hicieron compras
+SELECT nombre
+FROM clientes
+WHERE id NOT IN (
+    SELECT cliente
+    FROM compras
+);
+8 –  Mostrar Los clientes con el apellido mas común  
+select * from clientes where apellido in(SELECT apellido
+    FROM clientes GROUP BY apellido); 
+    
+9 – clientes que viven en la misma ciudad que Juan Perez
+SELECT * FROM clientes
+WHERE localidad = (
+    SELECT localidad
+    FROM clientes
+    WHERE nombre = 'Juan' AND apellido = 'Perez'
+);
+10 – Productos con stock menor al promedio
+select * from productos where stock < (select avg(stock) from productos)
+
+11 – Ciudades con mas población que rosario
+select * from ciudades where poblacion > (select poblacion from ciudades where nombre = "rosario")
+
+12 – Clientes que compraron algo
+select * from clientes c join compras co on c.id = co.cliente where co.cliente in (select cliente from compras);
+
+13 – productos que nunca se compraron
+select * from productos where id not in (select producto from compras );
+
+14 – Provincias de la región Pampa
+select * from provincias where region = (select region from provincias where nombre = 'pampa');
