@@ -1,69 +1,41 @@
-1 – Clientes que viven en buenos aires
-select c.nombre, c.apellido from clientes c join ciudades ci on c.localidad = ci.id where ci.provincia = ( SELECT id FROM provincias WHERE nombre = 'buenos aires');
+1 – clientes que viven en buenos aires
+select c.nombre, c.apellido from clientes c join ciudades ci on c.id = ci.id where ci.provincia = ( select id from provincias where nombre = 'buenos aires');
 
-2 – Productos con precio mayor al promedio
-SELECT *
-FROM productos
-WHERE precio > (SELECT AVG(precio) FROM productos);
+2 – productos con precio mayor al promedio
+select * from productos where precio > (select avg(precio) from productos);
 
-3 – Clientes que compraron el producto con id 5
-SELECT nombre
-FROM clientes
-WHERE id IN (
-    SELECT cliente
-    FROM compras
-    WHERE producto = 5
-);
-4 – Provincias con población mayor al promedio
-SELECT *
-FROM provincias
-WHERE poblacion > (SELECT AVG(poblacion) FROM provincias);
+3 – clientes que compraron el producto con id 5
+select nombre from clientes where id in ( select cliente from compras where producto = 5 );
 
-5 – Productos con el mismo precio que la birome azul
-SELECT descripcion
-FROM productos 
-WHERE precio = (
-    SELECT precio 
-    FROM productos 
-    WHERE descripcion = 'birome azul'
-);
-6 – ciudades de la provincia Buenos Aires
-SELECT nombre
-FROM ciudades
-WHERE provincia IN (
-    SELECT id
-    FROM provincias
-    WHERE nombre = 'buenos aires'
-);
-7 – clientes que NO hicieron compras
-SELECT nombre
-FROM clientes
-WHERE id NOT IN (
-    SELECT cliente
-    FROM compras
-);
-8 –  Mostrar Los clientes con el apellido mas común  
-select * from clientes where apellido in(SELECT apellido
-    FROM clientes GROUP BY apellido); 
-    
-9 – clientes que viven en la misma ciudad que Juan Perez
-SELECT * FROM clientes
-WHERE localidad = (
-    SELECT localidad
-    FROM clientes
-    WHERE nombre = 'Juan' AND apellido = 'Perez'
-);
-10 – Productos con stock menor al promedio
-select * from productos where stock < (select avg(stock) from productos)
+4 – provincias con población mayor al promedio
+select * from provincias where poblacion > (select avg(poblacion) from provincias);
 
-11 – Ciudades con mas población que rosario
-select * from ciudades where poblacion > (select poblacion from ciudades where nombre = "rosario")
+5 – productos con el mismo precio que la birome azul
+select descripcion from productos where precio = ( select precio from productos where descripcion = 'birome azul' );
 
-12 – Clientes que compraron algo
+6 – ciudades de la provincia buenos aires
+select nombre from ciudades where provincia in ( select id from provincias where nombre = 'buenos aires' );
+
+7 – clientes que no hicieron compras
+select nombre from clientes where id not in ( select cliente from compras );
+
+8 – mostrar los clientes con el apellido mas común
+select * from clientes where apellido in (select apellido from clientes group by apellido);
+
+9 – clientes que viven en la misma ciudad que juan perez
+select * from clientes where localidad = ( select localidad from clientes where nombre = 'juan' and apellido = 'perez' );
+
+10 – productos con stock menor al promedio
+select * from productos where stock < (select avg(stock) from productos);
+
+11 – ciudades con mas población que rosario
+select * from ciudades where poblacion > (select poblacion from ciudades where nombre = "rosario");
+
+12 – clientes que compraron algo
 select * from clientes c join compras co on c.id = co.cliente where co.cliente in (select cliente from compras);
 
 13 – productos que nunca se compraron
 select * from productos where id not in (select producto from compras );
 
-14 – Provincias de la región Pampa
+14 – provincias de la región pampa
 select * from provincias where region = (select region from provincias where nombre = 'pampa');
