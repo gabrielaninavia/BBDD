@@ -15,7 +15,7 @@ create view productos_BIC as select * from productos where nombre_producto = "BI
 CREATE VIEW porteños as select * from clientes WHERE ciudad IN ('buenos aires', 'ciudad autonoma');
 
 6.eliminar de la vista porteños a los que no vivan en ciudad autonoma
-delete * from porteños where ciudad <> "ciudad autonoma"
+delete from porteños where ciudad <> "ciudad autonoma"
 
 7. vista de los productos con precio mayor a 100
 create view productos as select * from productos where precio > 100
@@ -27,5 +27,5 @@ create view inquilinos as select nombre_cliente, ciudad from clientes cl join ci
 create view ciudades_provincia as select c.nombre, p.nombre from Ciudades c join Provincias p on c.id_provincia = p.id;
 
 10) vista de los clientes con la fecha de su ultima compra realizada
-create view clientes as select  c.id_cliente, c.nombre, c.apellido, MAX(co.fecha) AS ultima_fecha_compra from clientes c join compras co on c.id_cliente = co.id_cliente GROUP by c.id_cliente,c.nombre,c.apellido
+create view clientes as select  c.id_cliente, c.nombre, c.apellido, MAX(co.fecha) AS ultimacompra from clientes c join compras co on c.id_cliente = co.id_cliente GROUP by c.id_cliente,c.nombre,c.apellido
 
